@@ -70,14 +70,26 @@ pip install -r requirements.txt
 
 Dependencies: `numpy`, `pandas`, `scipy`, `yfinance`, `matplotlib`, `pyarrow`.
 
+Optionally install it as a package instead, which also puts a `cross-asset-anomaly` command on your PATH:
+
+```bash
+pip install -e .
+```
+
 ---
 
 ## Usage
 
-Run the full pipeline as a module from the parent directory:
+From the repository root:
 
 ```bash
 python -m cross_asset_anomaly --start 2014-01-01 --output-dir ./output
+```
+
+Or, if you installed with `pip install -e .`, from anywhere:
+
+```bash
+cross-asset-anomaly --start 2014-01-01 --output-dir ./output
 ```
 
 On first run it downloads and caches prices; subsequent runs reuse the cache. Outputs land in `--output-dir` (default `./output`).
@@ -148,24 +160,28 @@ Other panels: the **systemic stress** dial (concurrent pair breaks + regime), th
 ## Project structure
 
 ```
-cross_asset_anomaly/
-├── __main__.py        # CLI entry point (python -m cross_asset_anomaly)
-├── pipeline.py        # 9-stage orchestrator + summary
-├── data.py            # price download, caching, returns, vol-adjustment
-├── universe.py        # asset universe + factor/regime tickers
-├── pairs.py           # structural pairs with economic priors
-├── correlations.py    # pearson / spearman / tail-dep / partial / lead-lag
-├── pca_factors.py     # rolling PC1 share + eigenvalue dispersion
-├── regimes.py         # vol / curve / USD / credit regime axes
-├── detector.py        # z-score + persistence anomaly detection
-├── fdr.py             # Benjamini–Hochberg multiple-comparison correction
-├── systemic.py        # systemic stress index
-├── portfolio.py       # canonical portfolios + risk lens + pair attribution
-├── backtest.py        # conditional forward-return study
-├── events.py          # macro event calendar / alert tagging
-├── dashboard.py       # interactive self-contained HTML dashboard
-├── viz.py             # static matplotlib heatmaps / time series
-└── requirements.txt
+cross-asset-anomaly/
+├── cross_asset_anomaly/       # the Python package
+│   ├── __main__.py            # CLI entry point (python -m cross_asset_anomaly)
+│   ├── pipeline.py            # 9-stage orchestrator + summary
+│   ├── data.py                # price download, caching, returns, vol-adjustment
+│   ├── universe.py            # asset universe + factor/regime tickers
+│   ├── pairs.py               # structural pairs with economic priors
+│   ├── correlations.py        # pearson / spearman / tail-dep / partial / lead-lag
+│   ├── pca_factors.py         # rolling PC1 share + eigenvalue dispersion
+│   ├── regimes.py             # vol / curve / USD / credit regime axes
+│   ├── detector.py            # z-score + persistence anomaly detection
+│   ├── fdr.py                 # Benjamini–Hochberg multiple-comparison correction
+│   ├── systemic.py            # systemic stress index
+│   ├── portfolio.py           # canonical portfolios + risk lens + pair attribution
+│   ├── backtest.py            # conditional forward-return study
+│   ├── events.py              # macro event calendar / alert tagging
+│   ├── dashboard.py           # interactive self-contained HTML dashboard
+│   └── viz.py                 # static matplotlib heatmaps / time series
+├── docs/                      # committed dashboard snapshot served by GitHub Pages
+├── pyproject.toml
+├── requirements.txt
+└── README.md
 ```
 
 ---

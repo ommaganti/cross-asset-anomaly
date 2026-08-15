@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cross-asset-anomaly"
+version = "0.1.0"
+description = "Cross-asset rolling-correlation anomaly detector with FDR correction, systemic stress index, and a portfolio risk lens."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "ommaganti" }]
+keywords = ["quantitative-finance", "correlation", "risk", "anomaly-detection", "cross-asset"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Office/Business :: Financial :: Investment",
+    "Intended Audience :: Financial and Insurance Industry",
+]
+dependencies = [
+    "numpy>=1.24",
+    "pandas>=2.0",
+    "scipy>=1.10",
+    "yfinance>=0.2.40",
+    "matplotlib>=3.7",
+    "pyarrow>=14.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/ommaganti/cross-asset-anomaly"
+Dashboard = "https://ommaganti.github.io/cross-asset-anomaly/"
+
+[project.scripts]
+cross-asset-anomaly = "cross_asset_anomaly.__main__:main"
+
+[tool.setuptools]
+packages = ["cross_asset_anomaly"]
